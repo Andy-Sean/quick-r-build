@@ -4,7 +4,7 @@
   "description": "Job Hunting made Easy",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "dev": "./node_modules/nodemon/lib/nodemon.js server.js"
   },
   "repository": {
     "type": "git",
