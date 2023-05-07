@@ -1,24 +1,18 @@
 {
-  "name": "job-hunting-tool",
-  "version": "1.0.0",
-  "description": "Job Hunting made Easy",
-  "main": "index.js",
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-      "dev": "./node_modules/nodemon/lib/nodemon.js server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Andy-Sean/Job-Hunting-Tool.git"
-  },
-  "author": "Andy Chang, Sean Yan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Andy-Sean/Job-Hunting-Tool/issues"
-  },
-  "homepage": "https://github.com/Andy-Sean/Job-Hunting-Tool#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^2.0.22",
-    "react": "^18.2.0"
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "next": "13.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }
