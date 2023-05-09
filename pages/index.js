@@ -1,4 +1,4 @@
-import Navbar from './navbar';
+import Navbar from '../components/navbar';
 
 import Link from 'next/link';
 import Head from 'next/head';
