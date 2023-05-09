@@ -1,6 +1,8 @@
 import Navbar from '../components/navbar';
 import Landing from '../components/landing';
 
+import { dancingScript } from '../utils/fonts';
+
 import Link from 'next/link';
 import Head from 'next/head';
 import { useState } from 'react';
