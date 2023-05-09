@@ -1,4 +1,5 @@
-import Navbar from './navbar';
+import Navbar from '../components/navbar';
+import Landing from '../components/landing';
 
 import Link from 'next/link';
 import Head from 'next/head';
@@ -9,7 +10,7 @@ export default function Main() {
   return (
     <>
       <Navbar />
-      <h1> Content here lol</h1>
+      <Landing />
     </>
   )
 }
