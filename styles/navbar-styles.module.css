@@ -3,37 +3,44 @@
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-  align-items: center; /* this fixed that title and rest nav bar not aligning properly */
-}
-
-.test {
-  text-decoration: none;
-  color: var(--navbar-txt-color);
+  align-items: center; /*center align text*/
+  padding: 10px;
   background-color: var(--navbar-bg-color);
 }
 
-#title{
-  padding: 5px 0%;
-}
-
-.navbar{
-  background-color: gray;
-}
-
-.links {
+#links {
   display: flex;
-}
-
-.link {
-  text-decoration: none;
-  padding: 0px 5px;
-}
-
-.divider {
-  background-color: white;
-  width: 50px;
+  align-items: center;
 }
 
 .navUl {
-  color: black;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.divider {
+  width: 2px;
+  height: 1em;
+  margin: 0px 16px;
+  background-color: var(--navbar-txt-color);
+  flex-shrink: 0;
+}
+
+.link {
+  color: var(--navbar-txt-color);
+  padding: 0px 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+#title {
+  color: var(--navbar-txt-color);
+  color: white;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-right: 50px;
 }
