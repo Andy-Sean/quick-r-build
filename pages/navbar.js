@@ -1,20 +1,25 @@
+import styles from '../styles/navbar-styles.module.css';
 import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <div>
-      <p>Quick-R-Build</p>
-      <nav>
-        <ul>
-          <Link href="/">Resume/CV</Link>
-          <Link href="/">Job Description</Link>
-          <Link href="/">Result</Link>
+    <div id={styles.Navbar}>
+
+      <div id={styles.title}> Quick-R-Build</div>
+      <div id={styles.links}>
+        <ul className={styles.navUl}>
+          <Link href="/" className={styles.link} >Resume/CV </Link>
+          <Link href="/" className={styles.link}>Job Description</Link>
+          <Link href="/" className={styles.link}>Result</Link>
         </ul>
-        <ul>
-        <Link href="/">About</Link>
-        <Link href="/">Attributions</Link>
+        
+        <div className={styles.divider}></div>
+
+        <ul className={styles.navUl}>
+          <Link href="/" className={styles.link}>About</Link> 
+          <Link href="/" className={styles.link}>Attributions</Link>
         </ul>
-      </nav> 
+      </div>
     </div>
   )
 

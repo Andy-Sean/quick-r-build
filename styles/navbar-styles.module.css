@@ -1,0 +1,39 @@
+#Navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center; /* this fixed that title and rest nav bar not aligning properly */
+}
+
+.test {
+  text-decoration: none;
+  color: var(--navbar-txt-color);
+  background-color: var(--navbar-bg-color);
+}
+
+#title{
+  padding: 5px 0%;
+}
+
+.navbar{
+  background-color: gray;
+}
+
+.links {
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  padding: 0px 5px;
+}
+
+.divider {
+  background-color: white;
+  width: 50px;
+}
+
+.navUl {
+  color: black;
+}
