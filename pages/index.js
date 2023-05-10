@@ -14,6 +14,7 @@ export default function Main() {
     <>
       <Navbar />
       <Landing />
+      <a href="/input-resume">Build that thing</a>
     </>
   )
 }
