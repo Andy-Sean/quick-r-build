@@ -6,7 +6,8 @@ export default function Main(){
       <Navbar openPage="Resume/CV"/>
       <form action="/api/form-resume" method="post">
         <label for="jobDescription">Job Description: </label>
-        <input name="jobDescription" type="text"></input>
+        <input name="jobDescription" type="text"/>
+        <button type="submit"> Submit! </button>
       </form>
     </div>
   )  
