@@ -7,7 +7,8 @@ export default function Landing(){
         <div className={fira.className}> 
             <div className={styles.main}>
                 <Image 
-                    src="/../public/images/resume-portfolio-svgrepo-com.png"
+                    priority //causes image to preload
+                    src="/images/resume-icon.svg" //starts path from public directory
                     alt="the image on the left"
                     width={500}
                     height={500}
