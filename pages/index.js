@@ -11,11 +11,11 @@ import { useState } from 'react';
 export default function Main() {
   return (
     <>
-      <Navbar />
+      <Navbar openPage="Quick-R-Build"/>
       <Landing />
       <a href="/input-resume">Build that thing</a>
-    </>
+   </>
   )
 }
 
-
+ 
