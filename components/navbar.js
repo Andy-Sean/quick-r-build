@@ -2,7 +2,7 @@ import styles from '../styles/navbar-styles.module.css';
 import Link from 'next/link';
 import { fira } from '../utils/fonts'; //font input
 
-export default function Navbar( { openPage }) {
+export default function Navbar( { openPage, currentPage }) {
 
   //this jank allows for link to be highlighted - a bit janky but it works so...?
   const pageNames = [ ["Quick-R-Build","/"], ["Resume/CV","/input-resume"], ["Job Description","/job-desc"], ["Result","/result"], ["About","/about"], ["Attributions","/attributions"] ];
