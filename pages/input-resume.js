@@ -46,7 +46,7 @@ function ResumeContent(){
 // }
 
 //this is what the json object is HOPEFULLY gonna look like at the end...
-let sampleResume = { //replace each thing in the array with an object eventually
+let sampleResumeBAD = { //replace each thing in the array with an object eventually
   "Education": [ "Waterloo", "Laurier", "High School" ],
   "Skills": [ "React", "JS", "Racket" ],
   "Experience": [],
@@ -75,7 +75,7 @@ export default function Main(){
         <Sidebar/>
         {/*<JobDescription/> moved this to other page 
         <ResumeContent/> not sure if i need this right now...?*/}
-        <RenderResume resumeObject={sampleResume}/>
+        <RenderResume resumeObject={sampleResumeBAD}/>
       </>
   )  
     
