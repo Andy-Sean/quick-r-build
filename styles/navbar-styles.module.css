@@ -37,7 +37,6 @@
 
 #title {
   color: var(--navbar-txt-color);
-  color: white;
   font-weight: 700;
   font-style: italic;
   font-size: 24px;
@@ -45,8 +44,46 @@
   margin-right: 50px;
 }
 
-.onPage {
+#menuButton {
+  background-color: transparent;
+  border: none;
+}
+
+#menuButton #inner {
+  color: white;
+  height: 1.25rem;
+}
+
+#ddLinks {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--navbar-bg-color);
+  padding: 10px;
+  right: 0px;
+}
+
+#ddLinks .link {
+  padding: 2px 0px;
+}
+
+.link:hover {
   color: palegreen;
 }
 
+.onPage {
+  color: aquamarine;
+}
 
+/* small screen accessibility */
+#DropDown {
+  display: none;
+}
+@media (max-width: 768px) {
+  #links {
+    display: none;
+  }
+  #DropDown {
+    display: block;
+  }
+}

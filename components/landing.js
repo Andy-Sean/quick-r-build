@@ -10,8 +10,8 @@ export default function Landing(){
                     priority //causes image to preload
                     src="/images/resume-icon.svg" //starts path from public directory
                     alt="the image on the left"
-                    width={300}
-                    height={300}
+                    width={185}
+                    height={185}
                 />
                 <div id={styles.landingtext}> 
                     <p> Build & Rebuild your Resume with <b> Quick-R-Build! </b> </p>
