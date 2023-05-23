@@ -81,7 +81,7 @@ const sampleResume = {
 
 
 //here is what the pure JSON looks like:
-console.log(JSON.stringify(sampleResume));
+//console.log(JSON.stringify(sampleResume));
 const sampleResumeJSON = {
   "Personals":{ "_type":"object",
                 "Name":"Billiam Wilheim IX",

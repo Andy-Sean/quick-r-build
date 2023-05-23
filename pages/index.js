@@ -1,13 +1,13 @@
 import Navbar from '../components/navbar';
 import Landing from '../components/landing';
-import { sampleResume } from '../components/resume-format';
+import { sampleResume } from '../salvagables/resume-format';
 
 import Link from 'next/link';
 import Head from 'next/head';
 
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-console.log(sampleResume);
+//console.log(sampleResume);
 export default function Main() {
   return (
     <>
