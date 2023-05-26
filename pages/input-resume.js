@@ -1,34 +1,9 @@
 import Navbar from '../components/navbar';
 import Link from 'next/link';
-import { useState } from 'react';
+import { DescFactory, EntryFactory, EntryRender } from '../components/entry';
+import styles from "../styles/input-resume-main.module.css"
 
-function EntryFactory(title, subtitle, date, link, descriptions) { return {title, subtitle, date, link, descriptions}; };
-function DescFactory(on, text) { return {on, text}};
 
-function DescRender( {on, text} ) {
-  const [ checked,setChecked] = useState(on);
-  const onChange = () => { setChecked(prev => !prev) };
-  return (
-    <div><input type="checkbox" onChange={onChange} checked={checked} name={text} key={text}></input>{text}</div>
-  )
-}
-
-function EntryRender({ title, subtitle, date, link, descriptions }) {
-  const labelFunc = ( link, title ) => {
-    if (link && title) return <div><strong><a href={link}>{title}</a></strong></div>
-    else if (link) return <div><strong><a href={link}>{link}</a></strong></div>
-    else if (title) return <div><strong>{title}</strong></div>
-    else return null;
-  };   
-  return (
-    <div>
-      {labelFunc(link, title)}
-      {subtitle? <span>{subtitle}</span> : null }<span> | </span>
-      {date? <span>{date}</span> : null }
-      <div>{descriptions.map( (d) => {return DescRender(d); })}</div>
-    </div>
-  )
-}
 
 function EntryPoolRender({ title, subtitle, date, link, descriptions }) {
   if (title) return <div>{title}</div>
@@ -41,15 +16,15 @@ function EntryPoolRender({ title, subtitle, date, link, descriptions }) {
 
 function Sidebar() { 
   return (
-    <div>
+    <div id={styles.Sidebar}>
       <div>
-        <button><span></span>Add New Entry</button>
+        <button><span></span>Add Entry</button>
         <button><span></span>Remove Entry</button>  
       </div>
       <div>
-        <button><span></span>Export CV Settings</button>
-        <button><span></span>Load CV from ...</button>
-        <button><span></span>Load Sample CV</button>
+        <button><span></span>Export CV</button>
+        <button><span></span>Load CV</button>
+        <button><span></span>Load Sample</button>
       </div>
     </div>
   )
@@ -58,7 +33,7 @@ function Sidebar() {
 function Pool( {entryArray = []} ) {
   const emptyPool = entryArray.length === 0;
   return (
-    <div>
+    <div id={styles.Pool}>
       {emptyPool? 
         <p>Your pool is currently empty.
            It would hold everything that is not on the final CV. 
@@ -72,7 +47,7 @@ function Pool( {entryArray = []} ) {
 function Resume( {categoryArray = []}) {
   const noResume = categoryArray.length === 0;
   return (
-    <div>
+    <div id={styles.Resume}>
       {noResume?
         <p>Here is where your resume would display when there are items in it.
           To get started, either create new sections, add new entries, or load them in from the pool.
@@ -85,7 +60,7 @@ function Resume( {categoryArray = []}) {
 
 function ResumeFooter () {
   return (
-    <div>
+    <div id={styles.ResumeFooter}>
       <div>
         <button>+ New Section</button>
       </div>
@@ -98,27 +73,31 @@ function ResumeFooter () {
 }
 
 export default function Main(){
-  const resProto = [ EntryFactory("First Admiral of US Navy", "Marine Division", "2018-2022", "https://www.google.com", 
+  const resProto = [ EntryFactory("Experience", "First Admiral of US Navy", "Marine Division", "2018", "", "https://www.google.com", 
                       [ DescFactory(true,"Increased Efficency by 1500%"), DescFactory(true, "Military stuff idk")]),
-                     EntryFactory("Junior Software Dev","Google", "NEVER", "", 
+
+                     EntryFactory("Internship", "Junior Software Dev","Google", "", "May 1914", "",
                       [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection")]),
+
+                      EntryFactory("Education", "High School","", "2018", "2022", "",
+                      []),
+                      EntryFactory("Awards", "","", "", "", "",
+                      [ DescFactory(true,"2019 Euclid Zone 5"), DescFactory(true, "2020 Euclid Zone 5"), DescFactory(false, "2021 CCC Bottom 5%")]),
                     ];
-  const resExtra = [  EntryFactory("","Google", "NEVER", "", 
-                      [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection")]),
-                      EntryFactory("", "", "2018-2022", "https://www.google.com", 
-                      [ DescFactory(true,"Increased Efficency by 1500%"), DescFactory(true, "Military stuff idk")]),
-                     EntryFactory("","", "NEVER", "", 
-                      [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection")]),
-                      EntryFactory("","", "", "", 
-                      [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection")])];
 
   return (
       <>
+      <div className={styles.body}>
         <Navbar openPage="Resume/CV"/>
-        <Sidebar />
-        <Pool entryArray={resProto.concat(resExtra)}/> 
-        <Resume categoryArray={resProto}/>
-        <ResumeFooter />
+        <div className={styles.stealFlexboxHeight}>
+          <div className={styles.gridBody}>
+            <Sidebar />
+            <Resume categoryArray={resProto}/>
+            <Pool entryArray={[]}/> 
+            <ResumeFooter />
+          </div>
+        </div>
+      </div>
       </>
   )  
 }

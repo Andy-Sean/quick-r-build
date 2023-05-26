@@ -1,0 +1,49 @@
+/* jank position stuff to get grid to take up the rest of the screen */
+.body {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.stealFlexboxHeight {
+  overflow: hidden;
+}
+
+/* grid position rules */
+.gridBody {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: min(150px,25%) 1fr;
+  grid-template-rows: 1fr 10fr 1fr;
+}
+/* row-start col-start row-end col-end */
+#Sidebar {
+  grid-area: 1 / 1 / 2 / 2;
+}
+#Resume {
+  grid-area: 1 / 2 / 3 / 3;
+}
+#Pool {
+  grid-area: 2 / 1 / 4 / 2;
+}
+#ResumeFooter {
+  grid-area: 3 / 2 / 4 / 3;
+}
+
+#Resume {
+  overflow-y: scroll;
+  background-color: #fcbeae;
+}
+#Pool {
+  background-color: #aed4cc;
+}
+#ResumeFooter {
+  background-color: #663d17;
+}
+#Sidebar {
+  background-color: gray;
+}
