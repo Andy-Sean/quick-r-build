@@ -1,0 +1,72 @@
+.Entry {
+  margin: 5px 0px 5px 0px;
+  width: 85%;
+  background-color: #f0f5f5c0;
+  border-radius: 20px;
+  padding: 10px min(5%,15px);
+}
+
+.Section {
+  font-size: 0.7rem;
+  border-bottom: 2px solid #3e5b5b;
+  margin: 0px 0px 4px 0px;
+}
+
+.Title {
+  margin: 3px;
+  font-size: 1.4rem;
+}
+
+.Title a {
+  text-decoration: none;
+  color: #002699;
+}
+
+.LinkIcon {
+  height: 0.7em;
+}
+
+.Row2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Subtitle {
+  background-color: #d4e1e1;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 3px;
+  font-size: 1rem;
+}
+
+.Date {
+  background-color: #d4e1e1;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 3px;
+  font-size: 1rem;
+}
+
+/* Descriptions in each entry */ 
+.Desc {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: top;
+  background-color: #d4e1e1;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 3px;
+}
+
+.DescText {
+  font-size: 0.9rem;
+}
+
+.DescCheck {
+  height: 0.9rem;
+}
+
+.DescOff {
+  opacity: 0.5;
+}
+

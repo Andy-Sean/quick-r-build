@@ -1,6 +1,6 @@
 import Navbar from '../components/navbar';
 import Link from 'next/link';
-import { DescFactory, EntryFactory, EntryRender } from '../components/entry';
+import { DescFactory, EntryFactory, Entry } from '../components/entry';
 import styles from "../styles/input-resume-main.module.css"
 
 
@@ -52,7 +52,8 @@ function Resume( {categoryArray = []}) {
         <p>Here is where your resume would display when there are items in it.
           To get started, either create new sections, add new entries, or load them in from the pool.
           You can also swap around the order, and of course remove entries as well.</p> 
-        : categoryArray.map( (e) => {return EntryRender(e)})
+        : categoryArray.map( (e, ind) => {console.log(ind); return <Entry key={ind} title={e.title} subtitle={e.subtitle} startDate={e.startDate}
+          endDate={e.endDate} link={e.link} section={e.section} desc={e.desc}/>;})
     }
     </div>
   )
@@ -66,6 +67,7 @@ function ResumeFooter () {
       </div>
       <div>
         <button>?</button>
+        <button>Direct Build</button>
         <button>Continue {'>'}</button>
       </div>
     </div>
@@ -74,15 +76,23 @@ function ResumeFooter () {
 
 export default function Main(){
   const resProto = [ EntryFactory("Experience", "First Admiral of US Navy", "Marine Division", "2018", "", "https://www.google.com", 
-                      [ DescFactory(true,"Increased Efficency by 1500%"), DescFactory(true, "Military stuff idk")]),
+                      [ DescFactory(true,"Increased Efficency by 1500%"), DescFactory(true, "Military stuff idk")]), //all
 
                      EntryFactory("Internship", "Junior Software Dev","Google", "", "May 1914", "",
-                      [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection")]),
+                      [ DescFactory(true,"Increased Efficency by 15,000%"), DescFactory(true, "Optimized User Data Collection"),
+                      DescFactory(true, "Commited multiple war crimes including impersonation of medical staff and unauthorized collection of user data, demonstating unwavering loyalty to Google Corp")]), //no link
 
-                      EntryFactory("Education", "High School","", "2018", "2022", "",
-                      []),
+                      EntryFactory("Education", "Waterloo of Laurier","BCS", "", "", "",
+                      [ DescFactory(true,"Scholarships: None lol"), DescFactory(true, "Known in school as the \"destroyer\"")]), //no date
+
+                      EntryFactory("Education", "Port Fortquitlamterloo High School","", "2018", "2022", "",
+                      []), //no desc
+                      EntryFactory("Awards", "","hehe", "", "", "",
+                      [ DescFactory(true,"2019 Euclid Zone 5"), DescFactory(true, "2020 Euclid Zone 5"), DescFactory(false, "2021 CCC Bottom 5%")]), //no title
+                      EntryFactory("Awards", "hehe","", "", "", "",
+                      [ DescFactory(true,"2019 Euclid Zone 5"), DescFactory(true, "2020 Euclid Zone 5"), DescFactory(false, "2021 CCC Bottom 5%")]), //no subtitle
                       EntryFactory("Awards", "","", "", "", "",
-                      [ DescFactory(true,"2019 Euclid Zone 5"), DescFactory(true, "2020 Euclid Zone 5"), DescFactory(false, "2021 CCC Bottom 5%")]),
+                      [ DescFactory(true,"2019 Euclid Zone 5"), DescFactory(true, "2020 Euclid Zone 5"), DescFactory(false, "2021 CCC Bottom 5%")]), //no subtitle
                     ];
 
   return (

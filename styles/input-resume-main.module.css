@@ -31,19 +31,27 @@
   grid-area: 2 / 1 / 4 / 2;
 }
 #ResumeFooter {
-  grid-area: 3 / 2 / 4 / 3;
+  grid-area: 3 / 1 / 4 / 3;
 }
 
 #Resume {
   overflow-y: scroll;
-  background-color: #fcbeae;
+  background-color: #b3cbcb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 #Pool {
   background-color: #aed4cc;
 }
 #ResumeFooter {
   background-color: #663d17;
+  display: flex;
+  justify-content: space-between;
 }
 #Sidebar {
   background-color: gray;
+  display: flex;
+  flex-direction: column;
 }
