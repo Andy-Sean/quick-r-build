@@ -6,30 +6,33 @@ import { fira } from '../utils/fonts';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+let nextEntryId = 0;
+let nextDescId = 0;
 //Descriptions only exist in an Entry
 function DescFactory( active, text ) { 
-  return { active, text }
+  return { active, text, id: "d" + nextDescId++ }
 }
 
 function EntryFactory( section, title, subtitle, startDate, endDate, link, desc ) {
-  return { section, title, subtitle, startDate, endDate, link, desc }
+  return { section, title, subtitle, startDate, endDate, link, desc, id: nextEntryId++ }
 }
 
-function Desc({ active, text }) {
+function Desc({ active, text, id }) {
   const [check,setCheck] = useState(active);
   function handleCheck(e) {
-    setCheck(e.target.checked);
+    setCheck(!check);
   }
   const onStyle = check? "" : styles.DescOff;
   return (
-  <div className={styles.Desc}>
+  <div onClick={handleCheck} className={styles.Desc}>
+    {id}
     <input className={styles.DescCheck} type="checkbox" onChange={handleCheck} checked={check}></input>
     <span className={`${styles.DescText} ${onStyle}`}>{text}</span>
   </div>
   )
 }
 
-function Entry( { section, title, subtitle, startDate, endDate, link, desc}) {
+function Entry({ section, title, subtitle, startDate, endDate, link, desc, id }) {
   function determineTitle(title, link) {
       if (link && title) return <> <h2 className={styles.Title}><a href={link}>{title} <FontAwesomeIcon className={styles.LinkIcon} icon={faLink} /></a></h2> </>
       else if (link) return <> <h2 className={styles.Title}><a href={link}>{link} <FontAwesomeIcon className={styles.LinkIcon} icon={faLink} /></a> </h2> </>
@@ -46,12 +49,12 @@ function Entry( { section, title, subtitle, startDate, endDate, link, desc}) {
   return (
     <div className={`${styles.Entry} ${fira.className}`}>
       <div className={styles.Section}>{section}</div>
-      {determineTitle(title, link)}
+      {id}{determineTitle(title, link)}
       <div className={styles.Row2}>
         {subtitle? <span className={styles.Subtitle}>{subtitle}</span> : null}
         {determineDate(startDate, endDate)}
       </div> 
-      {desc.map( (d, ind)=> <Desc key={ind} active={d.active} text={d.text} /> )}
+      {desc.map( (d, ind)=> <Desc key={ind} active={d.active} text={d.text} id={d.id}/> )}
     </div>
   )
 }

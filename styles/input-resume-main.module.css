@@ -7,7 +7,6 @@
   height: 100vh;
   overflow: auto;
 }
-
 .stealFlexboxHeight {
   overflow: hidden;
 }
@@ -54,4 +53,23 @@
   background-color: gray;
   display: flex;
   flex-direction: column;
+}
+
+/* Popup for when you add an entry */
+#AddEntryPopup {
+  position: absolute;
+  background-color: red;
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  z-index: 1;
+  top: 0; right: 0; left: 0; bottom: 0;
+}
+
+#PageBlock {
+  background-color: blue;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
 }
