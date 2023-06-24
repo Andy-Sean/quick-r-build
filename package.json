@@ -4,7 +4,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:specific": "jest --watch",
+    "test:report": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
