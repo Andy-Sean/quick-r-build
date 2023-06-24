@@ -404,6 +404,10 @@ describe("Printing and Sorting ulitities", () => {
     result.set(1, EntryMaker(1, "Education", "Bachelor of BA", "WLU", "Sep 2022", "", "", [DescMaker(2, 1, false, "Professional Fursuiter uh I mean MASCOT MASCOT"), DescMaker(3, 1, false, "h")], true));
     result.set(0, EntryMaker(0, "Education", "Bachelor of CS", "UW", "Sep 2022", "", "", [DescMaker(0, 0, false, "GPA: 4.0"), DescMaker(1, 0, true, "Extracurriculars: idk things")], false));
     expect(EntryPool).toEqual(result);
+
+    setEntryPool(addEntry("","A","","","",""));
+    setEntryPool(addDesc(5, "H"))
+    result.set(5, EntryMaker(5, "","A","","","","", [DescMaker(7, 5, false, "H")], false));
   });
   
 });
