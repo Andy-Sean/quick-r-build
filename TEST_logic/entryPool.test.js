@@ -1,4 +1,4 @@
-import { addEntry, deleteEntry, editEntry, toggleEntry, addDesc, deleteDesc, editDesc, toggleDesc, moveDescLocal, moveDescGlobal, sortPool, sortPrintPool, createPool, sortExportPool, EntryPool, setEntryPool, resetEntryID, resetDescID } from "./entryPool";
+import { addEntry, deleteEntry, editEntry, toggleEntry, addDesc, deleteDesc, editDesc, toggleDesc, moveDescLocal, moveDescGlobal, sortPool, sortPrintPool, createPool, sortExportPool, EntryPool, setEntryPool, resetEntryID, resetDescID, setResumeEntries, appendSection, ResumeEntries, removeSection, renameSection, attachEntry, removeEntry, moveItem } from "./entryPool";
 
 function EntryMaker(entryID, section, title, subtitle, startDate, endDate, link, desc, active) {
   return { entryID, section, title, subtitle, startDate, endDate, link, desc, active };
@@ -242,7 +242,7 @@ describe("Printing and Sorting ulitities", () => {
     expect(EntryPool).toEqual(result);
   });
 
-  it('Show Off Print', () => {
+  it("Show Off Print", () => {
     setEntryPool(addEntry("Education", "Bachelor of CS", "UW", "Sep 2022", "", ""));
     setEntryPool(addEntry("Education", "Bachelor of BA", "WLU", "Sep 2022", "", ""));
     setEntryPool(addEntry("Awards", "Business Case Competition Winner", "Some Student Association", "", "Jan 2023", ""));
@@ -260,13 +260,13 @@ describe("Printing and Sorting ulitities", () => {
     setEntryPool(addEntry("Thing", "", "", "Aug 3000", "", ""));
     setEntryPool(addEntry("Thing", "", "", "", "", ""));
     setEntryPool(toggleEntry(1));
-    setEntryPool(toggleDesc(1,0));
+    setEntryPool(toggleDesc(1, 0));
     const result = sortPrintPool();
-    console.log(`printPool() result: \n${result}`)
+    // console.log(`printPool() result: \n${result}`)
     // I can't really... expect it to do anything...
-  })
+  });
 
-  it('Show Off sortExportPool', () => {
+  it("Show Off sortExportPool", () => {
     setEntryPool(addEntry("Education", "Bachelor of CS", "UW", "Sep 2022", "", ""));
     setEntryPool(addEntry("Education", "Bachelor of BA", "WLU", "Sep 2022", "", ""));
     setEntryPool(addEntry("Awards", "Business Case Competition Winner", "Some Student Association", "", "Jan 2023", ""));
@@ -284,12 +284,12 @@ describe("Printing and Sorting ulitities", () => {
     setEntryPool(addEntry("Thing", "", "", "Aug 3000", "", ""));
     setEntryPool(addEntry("Thing", "", "", "", "", ""));
     setEntryPool(toggleEntry(1));
-    setEntryPool(toggleDesc(1,0));
+    setEntryPool(toggleDesc(1, 0));
     const result = sortExportPool();
-    console.log(`exportPool() result: \n${result}`)
-  })
+    // console.log(`exportPool() result: \n${result}`)
+  });
 
-  it('createPool should work', function () {
+  it("createPool should work", function () {
     const data = `
     [
       {
@@ -395,7 +395,7 @@ describe("Printing and Sorting ulitities", () => {
         "active": false
       }
     ]
-    `
+    `;
     setEntryPool(createPool(data));
     const result = new Map();
     result.set(2, EntryMaker(2, "Awards", "Business Case Competition Winner", "Some Student Association", "", "Jan 2023", "", [DescMaker(4, 2, false, "It was a small competition but we WON")], false));
@@ -405,9 +405,136 @@ describe("Printing and Sorting ulitities", () => {
     result.set(0, EntryMaker(0, "Education", "Bachelor of CS", "UW", "Sep 2022", "", "", [DescMaker(0, 0, false, "GPA: 4.0"), DescMaker(1, 0, true, "Extracurriculars: idk things")], false));
     expect(EntryPool).toEqual(result);
 
-    setEntryPool(addEntry("","A","","","",""));
-    setEntryPool(addDesc(5, "H"))
-    result.set(5, EntryMaker(5, "","A","","","","", [DescMaker(7, 5, false, "H")], false));
+    setEntryPool(addEntry("", "A", "", "", "", ""));
+    setEntryPool(addDesc(5, "H"));
+    result.set(5, EntryMaker(5, "", "A", "", "", "", "", [DescMaker(7, 5, false, "H")], false));
   });
-  
+});
+
+describe("Time for Resume Entries Array", () => {
+  beforeEach(() => {
+    setEntryPool(new Map());
+    resetEntryID();
+    resetDescID();
+    setEntryPool(addEntry("Education", "Bachelor of CS", "UW", "Sep 2022", "", ""));
+    setEntryPool(addEntry("Education", "Bachelor of BA", "WLU", "Sep 2022", "", ""));
+    setEntryPool(addEntry("Awards", "Business Case Competition Winner", "Some Student Association", "", "Jan 2023", ""));
+    setEntryPool(addEntry("Awards", "CCC Senior top 50% cuz I SUCK :(", "CEMC", "Aug 2999", "", ""));
+    setEntryPool(addEntry("Awards", "CCC Senior top 50% cuz I SUCK :(", "CEMC", "Aug 3000", "", ""));
+    setEntryPool(addDesc(0, "GPA: 4.0"));
+    setEntryPool(addDesc(0, "Extracurriculars: idk things"));
+    setEntryPool(addDesc(1, "Professional Fursuiter uh I mean MASCOT MASCOT"));
+    setEntryPool(addDesc(1, "h"));
+    setEntryPool(addDesc(2, "It was a small competition but we WON"));
+    setEntryPool(addDesc(3, "I didn't learn DP :("));
+    setEntryPool(addDesc(4, "Still didn't learn DP :("));
+    setResumeEntries([[], ["Default"]]);
+  });
+
+  it("appendSections should work or error.", function () {
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    expect(ResumeEntries).toEqual([["Education", "Awards"], ["Default"]]);
+
+    expect(() => setResumeEntries(appendSection("Default"))).toThrowError("Cannot alter/create Default section! It's built in, sorry.");
+    expect(() => setResumeEntries(appendSection("Awards"))).toThrowError("Already a Section named Awards!");
+  });
+
+  it("removeSections - work and errors", function () {
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    setResumeEntries(removeSection("Awards"));
+    expect(ResumeEntries).toEqual([["Education"], ["Default"]]);
+
+    expect(() => setResumeEntries(removeSection("Default"))).toThrowError("Cannot alter/create Default section! It's built in, sorry.");
+    expect(() => setResumeEntries(removeSection("Q"))).toThrowError('"Q" section not found!');
+  });
+
+  it("renameSections - work and errors", function () {
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    setResumeEntries(renameSection("Awards", "RAWR"));
+    expect(ResumeEntries).toEqual([["Education", "RAWR"], ["Default"]]);
+
+    expect(() => setResumeEntries(renameSection("Default", "asdf"))).toThrowError("Cannot alter/create Default section! It's built in, sorry.");
+    expect(() => setResumeEntries(renameSection("Q", "ee"))).toThrowError('"Q" section not found!');
+    expect(() => setResumeEntries(renameSection("Education", "RAWR"))).toThrowError("Already a Section named RAWR!");
+    expect(() => setResumeEntries(renameSection("Education", "Default"))).toThrowError("Cannot alter/create Default section! It's built in, sorry.");
+  });
+
+  it("attachEntry should work plsplspls", function () {
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    setEntryPool(addEntry("", "Defaulty", "", "", "", "")); //entry 5
+    setEntryPool(addEntry("Fuzzy", "Defaulty", "", "", "", "")); //entry 6
+
+    setResumeEntries(attachEntry(5));
+    expect(ResumeEntries).toEqual([
+      ["Education", "Awards"],
+      ["Default", 5],
+    ]);
+    setResumeEntries(attachEntry(2));
+    setResumeEntries(attachEntry(4));
+    setResumeEntries(attachEntry(0));
+    expect(ResumeEntries).toEqual([
+      ["Education", 0, "Awards", 2, 4],
+      ["Default", 5],
+    ]);
+    setResumeEntries(attachEntry(6));
+    expect(ResumeEntries).toEqual([
+      ["Education", 0, "Awards", 2, 4],
+      ["Default", 5, 6],
+    ]);
+    expect(() => setResumeEntries(attachEntry(0))).toThrowError("Entry with ID 0 already exists in the Entry List.");
+    expect(() => setResumeEntries(attachEntry(19))).toThrowError("Entry with ID 19 not found.");
+    // console.log("Post attachEntry:\n" + sortPrintPool());
+  });
+
+  it("removeEntry must also do things", function () {
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    setEntryPool(addEntry("", "Defaulty", "", "", "", "")); //entry 5
+    setResumeEntries(attachEntry(5));
+    setResumeEntries(attachEntry(2));
+    setResumeEntries(attachEntry(4));
+    // console.log("Pre removeEntry: \n" + sortPrintPool())
+    setResumeEntries(removeEntry(2));
+    setResumeEntries(removeEntry(5));
+    expect(ResumeEntries).toEqual([["Education", "Awards", 4], ["Default"]]);
+    // console.log("Post removeEntry: \n" + sortPrintPool());
+    expect(() => setResumeEntries(removeEntry(69))).toThrowError("Entry with ID 69 not found.");
+    expect(() => setResumeEntries(removeEntry(2))).toThrowError("You haven't added Entry with ID 2 to the Entry List.");
+  });
+
+  it("moveItem works", function () {
+    setEntryPool(addEntry("", "Defaulty", "", "", "", "")); //entry 5
+    setResumeEntries(appendSection("Education"));
+    setResumeEntries(appendSection("Awards"));
+    setResumeEntries(attachEntry(5));
+    setResumeEntries(attachEntry(2)); // [ Education, Awards, 2, Default, 5 ]
+    setResumeEntries(moveItem(0, 1));
+    expect(ResumeEntries).toEqual([
+      ["Awards", "Education", 2],
+      ["Default", 5],
+    ]);
+    setResumeEntries(moveItem(2, 4));
+    expect(ResumeEntries).toEqual([
+      ["Awards", "Education"],
+      ["Default", 5, 2],
+    ]);
+    setResumeEntries(moveItem(3, 1));
+    expect(ResumeEntries).toEqual([
+      ["Awards", 5, "Education"],
+      ["Default", 2],
+    ]);
+    setResumeEntries(moveItem(3, 4));
+    expect(ResumeEntries).toEqual([["Awards", 5, "Education", 2], ["Default"]]);
+
+    expect(() => setResumeEntries(moveItem(0, 4))).toThrowError("Default must be the last section!");
+    expect(() => setResumeEntries(moveItem(1, 0))).toThrowError("Must start with a Section!");
+    expect(() => setResumeEntries(moveItem(-1, 0))).toThrowError("Index Out of Bounds! It must be between 0 and 4");
+    expect(() => setResumeEntries(moveItem(999, 0))).toThrowError("Index Out of Bounds! It must be between 0 and 4");
+    expect(() => setResumeEntries(moveItem(1, -1))).toThrowError("Index Out of Bounds! It must be between 0 and 4");
+    expect(() => setResumeEntries(moveItem(1, 999))).toThrowError("Index Out of Bounds! It must be between 0 and 4");
+  });
 });

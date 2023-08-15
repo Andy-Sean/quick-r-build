@@ -235,7 +235,9 @@ function createPool(json) {
   for (const entry of entryArr) {
     result.set(entry.entryID, entry);
     genEntryID();
-    for (const desc in entry.desc) { genDescID; }
+    for (const desc in entry.desc) {
+      genDescID;
+    }
   }
   setEntryPool(result);
 }

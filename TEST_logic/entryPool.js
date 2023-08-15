@@ -11,12 +11,15 @@ let entryID = 0;
 let descID = 0;
 const genEntryID = () => entryID++;
 const genDescID = () => descID++;
-const resetEntryID = () => (entryID = 0);
-const resetDescID = () => (descID = 0);
+export const resetEntryID = () => (entryID = 0);
+export const resetDescID = () => (descID = 0);
 
 // States
-let EntryPool = new Map();
-const setEntryPool = (thing) => (EntryPool = thing);
+export let EntryPool = new Map();
+export const setEntryPool = (thing) => (EntryPool = thing);
+
+export let ResumeEntries = [[], ["Default"]];
+export const setResumeEntries = (thing) => (ResumeEntries = thing);
 
 // ----------------------------------------------------------------------
 // Helper Functions / Error Throwers
@@ -52,7 +55,7 @@ const grabDescArrFrom = (draft, entryID) => draft.get(entryID).desc;
 // You must additionally call setEntryPool as the "State manipulator"
 
 // Entry Pool - add a new Entry, and initialize it to the barebones.
-function addEntry(section, title, subtitle, startDate, endDate, link) {
+export function addEntry(section, title, subtitle, startDate, endDate, link) {
   const entryID = genEntryID();
   const newEntry = { entryID, section: section === "" ? "Default" : section, title, subtitle, startDate, endDate, link, desc: [], active: false };
   return produce(EntryPool, (draft) => {
@@ -61,7 +64,7 @@ function addEntry(section, title, subtitle, startDate, endDate, link) {
 }
 
 // Entry Pool - delete an entry. Throw an error if it doesn't exist (cuz that means the UI failed...)
-function deleteEntry(entryID) {
+export function deleteEntry(entryID) {
   errorIfNotInEntryPool(entryID);
   return produce(EntryPool, (draft) => {
     draft.delete(entryID);
@@ -69,7 +72,7 @@ function deleteEntry(entryID) {
 }
 
 // Entry Pool - edit an entry. Throw an error if it doesn't exist - that aint good!
-function editEntry(entryID, section, title, subtitle, startDate, endDate, link) {
+export function editEntry(entryID, section, title, subtitle, startDate, endDate, link) {
   errorIfNotInEntryPool(entryID);
   const newEntry = { ...EntryPool.get(entryID), section: section === "" ? "Default" : section, title, subtitle, startDate, endDate, link };
   return produce(EntryPool, (draft) => {
@@ -78,7 +81,7 @@ function editEntry(entryID, section, title, subtitle, startDate, endDate, link) 
 }
 
 // Entry Pool - toggle entry's active status. To use along with Resume Entries. Errors if not found.
-function toggleEntry(entryID) {
+export function toggleEntry(entryID) {
   errorIfNotInEntryPool(entryID);
   return produce(EntryPool, (draft) => {
     draft.get(entryID).active = !draft.get(entryID).active;
@@ -88,7 +91,7 @@ function toggleEntry(entryID) {
 // ----------------------------------------------------------------------
 
 // Entry Pool - add a description to an entry. Also will error out if needed.
-function addDesc(entryID, desc) {
+export function addDesc(entryID, desc) {
   errorIfNotInEntryPool(entryID);
   const newDesc = { entryID, desc, active: false, descID: genDescID() };
   return produce(EntryPool, (draft) => {
@@ -97,7 +100,7 @@ function addDesc(entryID, desc) {
 }
 
 // Entry Pool - delete a description. Errors if entry, then description not found.
-function deleteDesc(descID, entryID) {
+export function deleteDesc(descID, entryID) {
   errorIfNotInEntryPool(entryID);
   errorIfDescNotFound(descID, entryID);
   return produce(EntryPool, (draft) => {
@@ -107,7 +110,7 @@ function deleteDesc(descID, entryID) {
 }
 
 // Entry Pool - description editing. Follows similarly.
-function editDesc(descID, entryID, desc) {
+export function editDesc(descID, entryID, desc) {
   errorIfNotInEntryPool(entryID);
   errorIfDescNotFound(descID, entryID);
   return produce(EntryPool, (draft) => {
@@ -118,7 +121,7 @@ function editDesc(descID, entryID, desc) {
 }
 
 // Entry Pool - description toggle.
-function toggleDesc(descID, entryID) {
+export function toggleDesc(descID, entryID) {
   errorIfNotInEntryPool(entryID);
   errorIfDescNotFound(descID, entryID);
   return produce(EntryPool, (draft) => {
@@ -128,7 +131,7 @@ function toggleDesc(descID, entryID) {
 }
 
 // Entry Pool - move descriptions within the same list. This doesn't change the array size.
-function moveDescLocal(descID, entryID, newIndex) {
+export function moveDescLocal(descID, entryID, newIndex) {
   errorIfNotInEntryPool(entryID);
   errorIfDescNotFound(descID, entryID);
   errorIfConstIndexOutOfBound(entryID, newIndex);
@@ -140,7 +143,7 @@ function moveDescLocal(descID, entryID, newIndex) {
 }
 
 // Entry Pool - move a description to a whole new list! Diff. Error Handler since this can increase array size
-function moveDescGlobal(descID, entryID, newEntryID, newIndex) {
+export function moveDescGlobal(descID, entryID, newEntryID, newIndex) {
   errorIfNotInEntryPool(entryID);
   errorIfNotInEntryPool(newEntryID);
   errorIfDescNotFound(descID, entryID);
@@ -156,7 +159,7 @@ function moveDescGlobal(descID, entryID, newEntryID, newIndex) {
 // ----------------------------------------------------------------------
 
 // Entry Pool - Sort the Pool. Helps when displaying to UI for alphabeticization. That's about all though.
-function sortPool() {
+export function sortPool() {
   const sortFun = (a, b) => {
     if (a.section !== b.section) return a.section < b.section ? -1 : 1;
     else if (a.title !== b.title) return a.title < b.title ? -1 : 1;
@@ -170,12 +173,12 @@ function sortPool() {
 }
 
 // Entry Pool - TUI Version of UI. Prints out everything you might need. Good for a REPL!
-function sortPrintPool() {
+export function sortPrintPool() {
   const descDisplayName = ({ entryID, descID, desc, active }) => {
     return `↪ [${descID}] ${active ? "[On]" : "[Off]"} ${desc}`;
   };
   const entryDisplayName = ({ entryID, section, title, subtitle, link, startDate, endDate, active, desc }) => {
-    const display = `${section} | ${title? title : "No Title"}: ${title? title : "No Subtitle"} (Link: ${link? link : "none"}) ${startDate || endDate? startDate + " ~ " + endDate : "undated"}`
+    const display = `${section} | ${title ? title : "No Title"}: ${title ? title : "No Subtitle"} (Link: ${link ? link : "none"}) ${startDate || endDate ? startDate + " ~ " + endDate : "undated"}`;
     let result = `[${entryID}] ${active ? "[On]" : "[Off]"} ${display}\n`;
     for (const descObj of desc) {
       result += descDisplayName(descObj) + "\n";
@@ -191,22 +194,160 @@ function sortPrintPool() {
   return result;
 }
 
-// Entry Pool - Export Pool so user can save for later use. Array of Entry Objects. 
-function sortExportPool() {
+// Entry Pool - Export Pool so user can save for later use. Array of Entry Objects.
+export function sortExportPool() {
   setEntryPool(sortPool());
-  return JSON.stringify([...EntryPool.entries()].map( (x) => x[1] ), null, 2);
+  return JSON.stringify(
+    [...EntryPool.entries()].map((x) => x[1]),
+    null,
+    2
+  );
 }
 
 // Entry Pool - Create an Entry Pool object from the equivalent JSON. Doesn't load it in.
-function createPool(json) {
+export function createPool(json) {
   const entryArr = JSON.parse(json);
   const result = new Map();
   for (const entry of entryArr) {
     result.set(entry.entryID, entry);
     genEntryID();
-    for (const desc in entry.desc) { genDescID; }
+    for (const desc in entry.desc) {
+      genDescID;
+    }
   }
   return result;
 }
 
-export { EntryPool, addEntry, deleteEntry, editEntry, toggleEntry, setEntryPool, addDesc, deleteDesc, editDesc, toggleDesc, moveDescLocal, moveDescGlobal, sortPool, sortPrintPool, createPool, sortExportPool, resetDescID, resetEntryID };
+// ======================================================================================================
+// More Helpers
+const grabSectionIndex = (val) => ResumeEntries[0].findIndex((x) => x === val);
+const errorIfMessingWithDefault = (secName) => {
+  if (secName === "Default") {
+    throw Error(`Cannot alter/create Default section! It's built in, sorry.`);
+  }
+};
+const errorIfSectionNameExists = (secName) => {
+  if (ResumeEntries[0].findIndex((x) => x === secName) !== -1) {
+    throw Error(`Already a Section named ${secName}!`);
+  }
+};
+const errorIfSectionNameNoExists = (secName) => {
+  if (ResumeEntries[0].findIndex((x) => x === secName) === -1) {
+    throw Error(`"${secName}" section not found!`);
+  }
+};
+const errorIfNotInResumeEntries = (entryID) => {
+  const inNorm = ResumeEntries[0].findIndex((x) => x === entryID) !== -1;
+  const inDef = ResumeEntries[1].findIndex((x) => x === entryID) !== -1;
+  if (!(inNorm || inDef)) {
+    throw Error(`You haven't added Entry with ID ${entryID} to the Entry List.`);
+  }
+};
+const errorIfInResumeEntries = (entryID) => {
+  const inNorm = ResumeEntries[0].findIndex((x) => x === entryID) !== -1;
+  const inDef = ResumeEntries[1].findIndex((x) => x === entryID) !== -1;
+  if (inNorm || inDef) {
+    throw Error(`Entry with ID ${entryID} already exists in the Entry List.`);
+  }
+};
+
+// Resume Entries - append Section. Default section seperated cuz yeah.
+export function appendSection(name) {
+  errorIfMessingWithDefault(name);
+  errorIfSectionNameExists(name);
+  return produce(ResumeEntries, (draft) => {
+    draft[0].push(name);
+  });
+}
+
+// Resume Entries - remove Section. Cannot delete default.
+export function removeSection(name) {
+  errorIfMessingWithDefault(name);
+  errorIfSectionNameNoExists(name);
+  return produce(ResumeEntries, (draft) => {
+    draft[0].splice(grabSectionIndex(name), 1);
+  });
+}
+
+// Resume Entries - And Renaming of course!
+export function renameSection(oldName, newName) {
+  errorIfMessingWithDefault(oldName);
+  errorIfMessingWithDefault(newName);
+  errorIfSectionNameNoExists(oldName);
+  errorIfSectionNameExists(newName);
+  return produce(ResumeEntries, (draft) => {
+    draft[0][grabSectionIndex(oldName)] = newName;
+  });
+}
+
+// Resume Entries - Add an Entry in the correct section, or in Default if section not found.
+// -> Must also call toggleEntry
+export function attachEntry(entryID) {
+  errorIfNotInEntryPool(entryID);
+  errorIfInResumeEntries(entryID);
+  setEntryPool(toggleEntry(entryID));
+  const section = EntryPool.get(entryID).section;
+  return produce(ResumeEntries, (draft) => {
+    if (section === "Default") {
+      draft[1].push(entryID);
+    } else {
+      const sectionIndex = grabSectionIndex(section);
+      if (grabSectionIndex(section) === -1) {
+        draft[1].push(entryID);
+      } else {
+        let edited = false;
+        for (let secSectIndex = sectionIndex + 1; secSectIndex < draft[0].length; secSectIndex++) {
+          if (typeof draft[0][secSectIndex] === "string") {
+            draft[0].splice(secSectIndex, 0, entryID);
+            edited = true;
+            break;
+          }
+        }
+        if (!edited) draft[0].push(entryID);
+      }
+    }
+  });
+}
+
+// Resume Entries - Remove an Entry. Check both arrays
+export function removeEntry(entryID) {
+  errorIfNotInEntryPool(entryID);
+  errorIfNotInResumeEntries(entryID);
+  setEntryPool(toggleEntry(entryID));
+  return produce(ResumeEntries, (draft) => {
+    const next = draft[0].filter((x) => typeof x === "string" || x !== entryID);
+    const neDe = draft[1].filter((x) => typeof x === "string" || x !== entryID);
+    return [next, neDe];
+  });
+}
+
+// Resume Entries - move items around! However, Default must be the last section.
+export function moveItem(itemIndex, newIndex) {
+  const errorIfOOB = (ind) => {
+    let len = ResumeEntries[0].length + ResumeEntries[1].length;
+    if (ind < 0 || ind >= len) {
+      throw Error(`Index Out of Bounds! It must be between 0 and ${len - 1}`);
+    }
+  };
+  errorIfOOB(itemIndex);
+  errorIfOOB(newIndex);
+
+  let flattedArr = ResumeEntries.flat();
+  const [item] = flattedArr.splice(itemIndex, 1);
+  flattedArr.splice(newIndex, 0, item);
+  const defaultIndex = flattedArr.findIndex((x) => x === "Default");
+  flattedArr = [flattedArr.slice(0, defaultIndex), flattedArr.slice(defaultIndex, flattedArr.length)];
+  
+  // These errors are best calculated here...
+  if (flattedArr[1].filter((x) => typeof x === "string").length !== 1) {
+    throw Error("Default must be the last section!");
+  }
+  if (typeof flattedArr[0][0] !== "string") {
+    throw Error("Must start with a Section!")
+  }
+  return produce(ResumeEntries, (draft) => {
+    draft = flattedArr; 
+    return draft;
+  });
+}
+
