@@ -407,7 +407,8 @@ describe("Printing and Sorting ulitities", () => {
 
     setEntryPool(addEntry("", "A", "", "", "", ""));
     setEntryPool(addDesc(5, "H"));
-    result.set(5, EntryMaker(5, "", "A", "", "", "", "", [DescMaker(7, 5, false, "H")], false));
+    result.set(5, EntryMaker(5, "Default", "A", "", "", "", "", [DescMaker(7, 5, false, "H")], false));
+    expect(EntryPool).toEqual(result);
   });
 });
 

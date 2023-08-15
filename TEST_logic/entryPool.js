@@ -212,7 +212,7 @@ export function createPool(json) {
     result.set(entry.entryID, entry);
     genEntryID();
     for (const desc in entry.desc) {
-      genDescID;
+      genDescID();
     }
   }
   return result;
