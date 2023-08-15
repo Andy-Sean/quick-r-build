@@ -3,24 +3,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "test": "jest",
-    "test:specific": "jest --watch",
-    "test:report": "jest --coverage"
+    "start": "next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "immer": "^10.0.2",
-    "jest": "^29.5.0",
     "next": "^13.4.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "ts-jest": "^29.1.0"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.22.5",
-    "babel-jest": "^29.5.0"
+    "react-dom": "18.2.0"
   }
 }
