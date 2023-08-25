@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <h1 class="italic text-lg text-blue-600 font-semibold">Quick-R-Build</h1>
       <p>Customize your resume to meet any need!</p>
       <div>
         <Link href="/app/master-editor">Edit Resume Master</Link>

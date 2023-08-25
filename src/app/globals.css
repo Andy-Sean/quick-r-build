@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: rgb(204, 134, 87);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    148deg,
+    rgba(204, 134, 87, 1) 11%,
+    rgba(49, 65, 157, 1) 47%,
+    rgba(16, 6, 48, 1) 100%
+  );
   min-height: 100vh;
-  
 }

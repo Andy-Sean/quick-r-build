@@ -1,9 +1,9 @@
 "use client" // Very important thing to include lest some random completely unrelated error code appears
 
 import { useSelector, useDispatch } from "react-redux";
-import { add1, sub1, set0 } from "../redux/masterSlice";
+import { add1, sub1, set0 } from "../../../../redux/masterSlice";
 import { Provider } from 'react-redux'
-import { reduxStore } from "../redux/redux-store";
+import { reduxStore } from "@/redux/redux-store";
 
 export default function MasterEditor() {
   const count = useSelector((reduxStore) => reduxStore.master.val);
