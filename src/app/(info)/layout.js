@@ -12,7 +12,7 @@ export default function InfoLayout({ children }) {
     <>
       {/* wrapper class to keep the footer to the bottom of the page */}
       <div className="flex flex-col min-h-screen">
-        <header className="sticky top-0 bg-teal-950 py-2 px-4 flex justify-between items-center">
+        <header className="z-50 sticky top-0 bg-teal-950 py-2 px-4 flex justify-between items-center">
           <h1 className="text-2xl sm:text-3xl font-bold">Quick-R-Build</h1>
           <nav className="flex gap-10 items-center">
             {/* collapsing menu if too small */}
