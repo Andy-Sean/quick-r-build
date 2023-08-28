@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "10.4.15",
     "bootstrap-icons": "^1.10.5",
     "eslint": "8.47.0",
@@ -19,6 +18,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.1.2",
-    "tailwindcss": "3.3.3"
+    "tailwindcss": "3.3.3",
+    "use-immer": "^0.9.0"
   }
 }
