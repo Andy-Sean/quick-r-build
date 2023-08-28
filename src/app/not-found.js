@@ -9,8 +9,8 @@ export default function NotFound() {
       
       <div className="bg-slate-600 rounded-b-xl p-8 w-full text-center">
         <p>
-          Uh oh, it looks like the page you were looking for doesn't exist. Either
-          this page hasn't been made yet, or you aren't supposed to be here.
+          Uh oh, it looks like the page you were looking for doesn&apos;t exist. Either
+          this page hasn&apos;t been made yet, or you aren&apos;t supposed to be here.
         </p>
         <p>
           Click <Link className="text-blue-400 underline" href="/">HERE</Link> to return to the home page, or just go
