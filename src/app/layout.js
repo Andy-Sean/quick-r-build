@@ -1,5 +1,4 @@
-// Layout for All Pages
-// Includes html & body tags, and a bunch of CSS imports
+// Shared Layout for All Pages - html, body & fonts
 
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -22,9 +21,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       <body className={ubuntu.className}>{children}</body>
     </html>
   );

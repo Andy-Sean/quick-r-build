@@ -1,13 +1,13 @@
 "use client";
+// Shared Layout for all App Pages - use the Context & Navbar
 
-// Use all of them Contexts!
-
+import AppNav from "./app-navbar";
 import { ContextsProvider } from "@/redux/ContextsProvider";
 
 export default function AppLayout({ children }) {
   return (
     <>
-      <p>Within the App</p>
+      <AppNav />
       <ContextsProvider>{children}</ContextsProvider>
     </>
   );

@@ -1,3 +1,5 @@
+// Error 404 Page for whole Site
+
 import Link from "next/link";
 
 export default function NotFound() {

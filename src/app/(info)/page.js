@@ -1,3 +1,5 @@
+// Home Page
+
 import Link from "next/link";
 
 export default function Home() {
@@ -11,7 +13,6 @@ export default function Home() {
     <main>
       {/* Main Intro */}
       <div className="relative group m-2">
-        
         {/* Funny Decoration Things that appear/disappear */}
         <div className="-z-10 flex absolute top-0 left-0 h-full w-full">
           <div className={`${introStyle()} group-hover:delay-[100ms] bg-lime-400 flex-1 rounded-l-xl`} />
