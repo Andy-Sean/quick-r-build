@@ -11,6 +11,12 @@ export default function AppNavbarDropdown() {
       <button className="block sm:hidden text-lg bi bi-grid-3x3-gap-fill" onClick={() => setMenu((s) => !s)} />
       {menuOn ? (
         <div className="absolute top-full right-0 bg-lime-700 py-2 px-4 flex flex-col gap-2 sm:hidden">
+          <Link href="/app" onClick={() => setMenu(false)}>
+            App Home
+          </Link>
+          <Link href="/" onClick={() => setMenu(false)}>
+            To Info
+          </Link>
           <Link href="/app/master-editor" onClick={() => setMenu(false)}>
             Master
           </Link>

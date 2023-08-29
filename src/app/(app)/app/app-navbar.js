@@ -12,6 +12,8 @@ export default function AppNav() {
         <AppNavbarDropdown />
 
         {/* full menu otherwise */}
+        <Link href="/app" className="hidden sm:block text-lg bi bi-house-fill" />
+        <Link href="/" className="hidden sm:block text-lg">To Info</Link>
         <Link href="/app/master-editor" className="hidden sm:block text-lg">Master</Link>
         <Link href="/app/variant-editor" className="hidden sm:block text-lg">
           Variant

@@ -9,7 +9,7 @@ export default function MasterEditor() {
 
   return (
     <>
-      <p>Test</p>
+      <p>Master Interface</p>
       <p>Value of Master: {masterResume.val}</p>
 
       <button onClick={() => dispatchMaster({ type: "add1" })}>Add1</button>
