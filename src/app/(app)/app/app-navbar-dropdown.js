@@ -8,14 +8,14 @@ export default function AppNavbarDropdown() {
   const [menuOn, setMenu] = useState(false);
   return (
     <>
-      <button className="block sm:hidden text-lg bi bi-grid-3x3-gap-fill" onClick={() => setMenu((s) => !s)} />
+      <button className="block md:hidden text-lg bi bi-grid-3x3-gap-fill" onClick={() => setMenu((s) => !s)} />
       {menuOn ? (
-        <div className="absolute top-full right-0 bg-lime-700 py-2 px-4 flex flex-col gap-2 sm:hidden">
+        <div className="absolute top-full right-0 bg-lime-700 py-2 px-4 flex flex-col gap-2 md:hidden">
+          <Link href="/" className="text-yellow-500" onClick={() => setMenu(false)}>
+            To Info (Resets App!)
+          </Link>
           <Link href="/app" onClick={() => setMenu(false)}>
             App Home
-          </Link>
-          <Link href="/" onClick={() => setMenu(false)}>
-            To Info
           </Link>
           <Link href="/app/master-editor" onClick={() => setMenu(false)}>
             Master

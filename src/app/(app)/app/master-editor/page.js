@@ -3,18 +3,22 @@
 import { useContext } from "react";
 import { MasterContext, MasterDispatchContext } from "@/redux/ContextsProvider";
 
+import PersonalInfoDisplay from "../_resume-components/personal-info";
+import PersonalInfoEditor from "../_resume-components/personal-edit";
+
 export default function MasterEditor() {
   const masterResume = useContext(MasterContext);
   const dispatchMaster = useContext(MasterDispatchContext);
 
+
   return (
     <>
       <p>Master Interface</p>
-      <p>Value of Master: {masterResume.val}</p>
+      <p>Master Resume:</p>
+      <pre>{JSON.stringify(masterResume, null, 2)}</pre>
 
-      <button onClick={() => dispatchMaster({ type: "add1" })}>Add1</button>
-      <button onClick={() => dispatchMaster({ type: "sub1" })}>Sub1</button>
-      <button onClick={() => dispatchMaster({ type: "set0" })}>Set0</button>
+      <PersonalInfoDisplay />
+      <PersonalInfoEditor />
     </>
   );
 }
