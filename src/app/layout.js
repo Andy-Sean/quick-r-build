@@ -2,13 +2,13 @@
 
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Ubuntu } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 
-const ubuntu = Ubuntu({
-  weight: ["300", "400", "500", "700"],
+const font = Nunito_Sans({
+  weight: ["300", "400", "700", "800", "900"],
   subsets: ["latin"],
   style: ["italic", "normal"],
-  display: "swap",
+  display: "auto",
   fallback: ["system-ui", "arial", "verdana"],
 });
 
@@ -21,7 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={ubuntu.className}>{children}</body>
+      <body className={font.className}>{children}</body>
     </html>
   );
 }

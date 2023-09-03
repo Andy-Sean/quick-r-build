@@ -28,7 +28,7 @@ export default function Home() {
         </div>
 
         <div className="transition-all rounded-xl text-center p-2 bg-teal-50 text-black group-hover:bg-teal-50/40 border-2">
-          <h1 className="font-semibold text-4xl">Quick-R-Build</h1>
+          <h1 className="font-extrabold text-4xl">Quick-R-Build</h1>
           <h2 className="text-xl">Drag and Drop Resume Assembly</h2>
         </div>
       </div>
