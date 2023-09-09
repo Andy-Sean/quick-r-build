@@ -10,15 +10,14 @@ export default function MasterEditor() {
   const masterResume = useContext(MasterContext);
   const dispatchMaster = useContext(MasterDispatchContext);
 
-
   return (
     <>
       <p>Master Interface</p>
-      <p>Master Resume:</p>
+      <div className="mx-10">
+        <PersonalInfoDisplay />
+      </div>
+      <p>Debug:</p>
       <pre>{JSON.stringify(masterResume, null, 2)}</pre>
-
-      <PersonalInfoDisplay />
-      <PersonalInfoEditor />
     </>
   );
 }

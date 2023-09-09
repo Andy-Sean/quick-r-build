@@ -1,6 +1,6 @@
 // Initial State, Reducer, and Action Generators for Master Resume
 export const initialMaster = {
-  personalInfo: { name: null, tel: null, linkedin: null, github: null, email: null, website: null, address: null },
+  personalInfo: { name: "", tel: "", linkedin: "", github: "", email: "", website: "", address: "" },
   entries: [],
 };
 
@@ -22,14 +22,14 @@ export function actionPersonalSet(formSubmitEvent) {
   return {
     type: "personal/set",
     payload: {
-      // Empty Values should be turned into undefined
-      name: name.value.trim() || null,
-      tel: tel.value.trim() || null,
-      linkedin: linkedin.value.trim() || null,
-      github: github.value.trim() || null,
-      email: email.value.trim() || null,
-      website: website.value.trim() || null,
-      address: address.value.trim() || null,
+      // Empty Values should be turned into ""
+      name: name.value.trim() || "",
+      tel: tel.value.trim() || "",
+      linkedin: linkedin.value.trim() || "",
+      github: github.value.trim() || "",
+      email: email.value.trim() || "",
+      website: website.value.trim() || "",
+      address: address.value.trim() || "",
     },
   };
 }
@@ -37,7 +37,7 @@ export function actionPersonalSet(formSubmitEvent) {
 export function actionPersonalReset() {
   return {
     type: "personal/reset",
-    payload: { name: null, tel: null, linkedin: null, github: null, email: null, website: null, address: null },
+    payload: { name: "", tel: "", linkedin: "", github: "", email: "", website: "", address: "" },
   };
 }
 
